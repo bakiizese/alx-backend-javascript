@@ -1,6 +1,5 @@
 export default function updateStudentGradeByCity(arr, city, newGrades) {
-  if (!Array.isArray(arr) || typeof city !== 'string' || !Array.isArray(newGrades))
-    return [];
+  if (!Array.isArray(arr) || typeof city !== 'string' || !Array.isArray(newGrades)) return [];
   const na = 'N/A';
   const newar = arr
     .filter((vl) => vl.location === city)
