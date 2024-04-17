@@ -1,23 +1,23 @@
-interface Student {
-  firstName: string;
-  lastName: string;
-  age: number;
-  location: string;
-  }
+export const cpp: Subjects.Cpp = new Subjects.Cpp();
+export const java: Subjects.Java = new Subjects.Java();
+export const react: Subjects.React = new Subjects.React();
+export const cTeacher: Subjects.Teacher = {
+  firstName: 'Dennis',
+  lastName: 'Ritchie',
+  experienceTeachingC: 10,
+};
 
-const student1: Student = {};
-cosnt student2: Student = {};
+console.log('C++');
+cpp.setTeacher = cTeacher;
+console.log(cpp.getRequirements());
+console.log(cpp.getAvailableTeacher());
 
-cosnt studentsList: Student[] = [student1, student2];
-cosnt table = document.creatElement("table");
+console.log('Java');
+java.setTeacher = cTeacher;
+console.log(java.getRequirements());
+console.log(java.getAvailableTeacher());
 
-studentsList.forEach(student => {
-  const row = table.insertRow();
-  const cell1 = row.insertCell(0);
-  const cell2 = row.insertCell(1);
-
-  cell1.textContent = student.firstName;
-  cell2.textContent = student.location;
-  });
-
-document.body.appendChild(table);
+console.log('React');
+react.setTeacher = cTeacher;
+console.log(react.getRequirements());
+console.log(react.getAvailableTeacher());

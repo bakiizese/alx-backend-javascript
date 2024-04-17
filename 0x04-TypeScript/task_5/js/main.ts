@@ -1,23 +1,15 @@
-interface Student {
-  firstName: string;
-  lastName: string;
-  age: number;
-  location: string;
-  }
+export interface MajorCredits {
+  credits: number & { __brand: 'MajorCredits.credits' };
+}
 
-const student1: Student = {};
-cosnt student2: Student = {};
+export interface MinorCredits {
+  credits: number & { __brand: 'MinorCredits.credits' };
+}
 
-cosnt studentsList: Student[] = [student1, student2];
-cosnt table = document.creatElement("table");
+export function sumMajorCredits(subject1: MajorCredits, subject2: MajorCredits): MajorCredits {
+  return { credits: subject1.credits + subject2.credits } as MajorCredits;
+}
 
-studentsList.forEach(student => {
-  const row = table.insertRow();
-  const cell1 = row.insertCell(0);
-  const cell2 = row.insertCell(1);
-
-  cell1.textContent = student.firstName;
-  cell2.textContent = student.location;
-  });
-
-document.body.appendChild(table);
+export function sumMinorCredits(subject1: MinorCredits, subject2: MinorCredits): MinorCredits {
+  return { credits: subject1.credits + subject2.credits } as MinorCredits;
+}
