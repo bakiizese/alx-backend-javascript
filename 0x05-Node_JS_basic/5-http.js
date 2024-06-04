@@ -2,7 +2,7 @@ const http = require('http');
 
 const port = 1245;
 const hostname = '127.0.0.1';
-
+const app = http.createServer();
 const fs = require('fs');
 
 const filename = process.argv.length > 2 ? process.argv[2] : '';
@@ -66,18 +66,50 @@ async function countStudents(filepath) {
   }
 }
 
-const app = http.createServer((req, res) => {
-  if (req.url === '/') {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello Holberton School!');
-  } else if (req.url === '/students') {
-    countStudents(filename)
-      .then((result) => {
-	res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.end(result);
-      });
+const SERVER_ROUTE_HANDLERS = [
+  {
+    route: '/',
+    handler(_, res) {
+      const responseText = 'Hello Holberton School!';
+
+      res.setHeader('Content-Type', 'text/plain');
+      res.setHeader('Content-Length', responseText.length);
+      res.statusCode = 200;
+      res.write(Buffer.from(responseText));
+    },
+  },
+  {
+    route: '/students',
+    handler(_, res) {
+      const responseParts = ['This is the list of our students'];
+
+      countStudents(filename)
+        .then((report) => {
+          responseParts.push(report);
+          const responseText = responseParts.join('\n');
+          res.setHeader('Content-Type', 'text/plain');
+          res.setHeader('Content-Length', responseText.length);
+          res.statusCode = 200;
+          res.write(Buffer.from(responseText));
+        })
+        .catch((err) => {
+          responseParts.push(err instanceof Error ? err.message : err.toString());
+          const responseText = responseParts.join('\n');
+          res.setHeader('Content-Type', 'text/plain');
+          res.setHeader('Content-Length', responseText.length);
+          res.statusCode = 200;
+          res.write(Buffer.from(responseText));
+        });
+    },
+  },
+];
+
+app.on('request', (req, res) => {
+  for (const routeHandler of SERVER_ROUTE_HANDLERS) {
+    if (routeHandler.route === req.url) {
+      routeHandler.handler(req, res);
+      break;
+    }
   }
 });
 
