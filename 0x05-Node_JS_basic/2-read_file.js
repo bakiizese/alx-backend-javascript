@@ -6,7 +6,7 @@ function countStudents(filepath) {
     const rows = data.split('\n').map((line) => line.trim());
     const header = rows[0].split(',');
     const pp = [];
-    for (let i = 1; i < rows.length; i += 1) {
+    for (let i = 1; i < rows.length - 1; i += 1) {
       const people = {};
       const val = rows[i].split(',');
       for (let j = 0; j < header.length; j += 1) {
