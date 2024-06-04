@@ -2,11 +2,10 @@ const http = require('http');
 
 const port = 1245;
 const hostname = '127.0.0.1';
-let content = '';
 
 const fs = require('fs');
 
-const filename = process.argv[2];
+const filename = process.argv.length > 2 ? process.argv[2] : '';
 function readFile(filepath) {
   return new Promise((resolve, reject) => {
     fs.readFile(filepath, 'utf-8', (error, data) => {
@@ -23,7 +22,7 @@ function manData(data) {
   const rows = data.split('\n').map((line) => line.trim());
   const header = rows[0].split(',');
   const pp = [];
-  content = '';
+  let content = '';
   for (let i = 1; i < rows.length - 1; i += 1) {
     const people = {};
     const val = rows[i].split(',');
@@ -36,6 +35,7 @@ function manData(data) {
   for (let i = 0; i < header.length; i += 1) {
     fields.add(pp[i].field);
   }
+  content += 'This is the list of our students\n';
   content += `Number of students: ${pp.length}\n`;
   let lng = 0;
   const fieldss = Array.from(fields);
@@ -74,7 +74,7 @@ const app = http.createServer((req, res) => {
   } else if (req.url === '/students') {
     countStudents(filename)
       .then((result) => {
-        res.end(`This is the list of our students\n${result}`);
+        res.end(result);
       });
   }
 });
