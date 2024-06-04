@@ -6,6 +6,7 @@ let content = '';
 
 const fs = require('fs');
 
+const filename = process.argv[2];
 function readFile(filepath) {
   return new Promise((resolve, reject) => {
     fs.readFile(filepath, 'utf-8', (error, data) => {
@@ -71,7 +72,7 @@ const app = http.createServer((req, res) => {
   if (req.url === '/') {
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
-    countStudents('database.csv')
+    countStudents(filename)
       .then((result) => {
         res.end(`This is the list of our students\n${result}`);
       });
