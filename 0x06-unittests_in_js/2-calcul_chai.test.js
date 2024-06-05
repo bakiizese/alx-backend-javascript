@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const calculateNumber = require('./1-calcul_chai');
+const calculateNumber = require('./2-calcul_chai');
 
 describe('test 1-calcul for sum, a and b args', function() {
 	it('should return sum of a and b', function() {
