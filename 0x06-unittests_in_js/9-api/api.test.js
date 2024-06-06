@@ -10,7 +10,7 @@ describe('test express server', function() {
 		});
 	});
         it('expect 404 response form app', function(done) {
-                request.get('http://localhost:7865/w', function (error, response, body) {
+                request.get('http://localhost:7865/cart/w', function (error, response, body) {
                         expect(response.statusCode).to.be.equal(404);
                         done();
                 });
@@ -22,5 +22,12 @@ describe('test express server', function() {
                         done();
                 });
         });
+        it('expect 404 response form app', function(done) {
+                request.get('http://localhost:7865/cart/-5', function (error, response, body) {
+                        expect(response.statusCode).to.be.equal(404);
+                        done();
+                });
+        });
+
 
 });
