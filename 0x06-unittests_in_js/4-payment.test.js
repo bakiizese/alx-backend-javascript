@@ -13,6 +13,7 @@ describe ('Test for utils and sendPaymentRequestToApi integration', function () 
 		const result2 = payment(100, 20);
                 expect(payment.calledOnce).to.be.true;
 		expect(consolespy.log.calledWithExactly('The total is: 10')).to.be.true;
+		expect(consolespy.log.callCount).to.be.equal(1);
 		expect(result2).to.equal(10);
 		expect(result1).to.equal(result2);
 		stub.restore();
