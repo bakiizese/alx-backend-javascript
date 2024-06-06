@@ -22,7 +22,7 @@ describe ('Test for utils and sendPaymentRequestToApi integration', function () 
                 const payment = sinon.spy(sendPaymentRequestToApi);
                 const result1 = utils('SUM', 10.6, 10);
                 const result2 = payment(10.6, 10);
-		expect(utils.calledOnce).to.be.true;
+		expect(payment.calledOnce).to.be.true;
 		expect(utils.calledOnce).to.be.true;
 		expect(result1).to.equal(21);
                 expect(result1).to.equal(result2);
@@ -32,7 +32,7 @@ describe ('Test for utils and sendPaymentRequestToApi integration', function () 
                 const payment = sinon.spy(sendPaymentRequestToApi);
                 const result1 = utils('SUM', 10, 10.4);
                 const result2 = payment(10, 10.4);
-                expect(utils.calledOnce).to.be.true;
+                expect(payment.calledOnce).to.be.true;
                 expect(utils.calledOnce).to.be.true;
 		expect(result1).to.equal(20)
                 expect(result1).to.equal(result2);
@@ -42,7 +42,7 @@ describe ('Test for utils and sendPaymentRequestToApi integration', function () 
                 const payment = sinon.spy(sendPaymentRequestToApi);
                 const result1 = utils('SUM', 10.6, 10.4);
                 const result2 = payment(10.6, 10.4);
-                expect(utils.calledOnce).to.be.true;
+                expect(payment.calledOnce).to.be.true;
                 expect(utils.calledOnce).to.be.true;
                 expect(result1).to.equal(21)
                 expect(result1).to.equal(result2);
